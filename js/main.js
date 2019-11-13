@@ -1,4 +1,4 @@
-// åˆå§‹åŒ–
+// ³õÊ¼»¯
 var status = 0;
 $.backstretch("images/landingpage.jpg");
 $(".form").fadeOut(1);
@@ -11,16 +11,24 @@ function buttonclick() {
         $(".form").fadeIn(3000);
     } else if (status == 1) {
 
+        if ($("#input_name").val() == "" || $("#input_contact").val() == "") {
+            alert("Ç×£¬ÇëÍêÕûÌîĞ´±íµ¥ÄÚÈİ£¡");
+            return;
+        }
+
         $.ajax({
             type: "POST",
-            url: '', // todo : fill in the url
+            url: 'http://papicbus.applinzi.com/submit',
             data: $('#form').serialize(),
-            success: function (data) {
+            error: function() {
+                alert("±¨ÃûÊ§°Ü£¬ÇëÁªÏµÇÚ´´¹¤×÷ÈËÔ±¡£");
+            },
+            success: function(data) {
                 if (data == 1) {
                     $(".form").fadeOut(1);
                     $.backstretch("images/suc.jpg");
                 } else {
-                    alert("æŠ¥åå¤±è´¥ï¼Œè¯·è”ç³»å‹¤åˆ›å·¥ä½œäººå‘˜ã€‚");
+                    alert("±¨ÃûÊ§°Ü£¬ÇëÁªÏµÇÚ´´¹¤×÷ÈËÔ±¡£");
                 }
             }
         });
